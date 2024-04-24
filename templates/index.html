@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixology Butler</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <!-- Link to your main styles.css file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/toggle.css') }}"> <!-- Link to your toggle.css file -->
+</head>
+<body id="pageBody" class="customer-theme"> <!-- Add dynamic class based on user type -->
+
+
+<!-- Add dynamic class based on user type -->
+
+{% set user_type = 'Customer' %}
+
+<div class="container">
+    <div class="header">
+        <h1>Mixology Butler</h1>
+    </div>
+
+    <div class="toggle-container">
+        <input type="checkbox" id="toggle" class="toggle-input">
+        <label for="toggle" class="toggle-label"></label>
+    </div>
+
+    <p id="userTypeText">
+        {% if user_type == "Customer" %}
+            Let's give you a cocktail recommendation.
+        {% else %}
+            Let's give your customers some drinks to choose from.
+        {% endif %}
+    </p>
+
+    <button id="submitBtn">Submit</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('toggle');
+        const userTypeText = document.getElementById('userTypeText');
+        const submitBtn = document.getElementById('submitBtn');
+
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                userTypeText.textContent = "Let's give your customers some drinks to choose from.";
+            } else {
+                userTypeText.textContent = "Let's give you a cocktail recommendation.";
+            }
+        });
+
+        submitBtn.addEventListener('click', () => {
+            const user_type = toggle.checked ? 'Owner' : 'Customer';
+            window.location.href = `/${user_type}`;
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

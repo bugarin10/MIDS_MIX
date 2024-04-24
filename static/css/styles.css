@@ -1,0 +1,221 @@
+body {
+  font-family: "Gill Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(../icons/cocktails.avif);
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.container-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: calc(100% - 40px); /* Adjust for padding */
+  max-width: 1200px; /* Set maximum width */
+  margin: 20px auto; /* Adjust margin for separation */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.column {
+  flex: 1 1 30%; /* Equal width for each column */
+  margin: 10px; /* Adjust for separation between columns */
+}
+
+.column img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.column p {
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+#container-customer {
+  width: 100%;
+  float: left;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center 30%;
+  background-image: url(../icons/cocktail.png);
+  position: relative; /* Add this to position the text */
+}
+
+.hero-text {
+  width: 100%;
+  font-size: 70px;
+  color: #fdfcfa;
+  font-weight: bold;
+  position: absolute; /* Position the text */
+  top: 60%; /* Move the text to the vertical center */
+  left: 50%; /* Move the text to the horizontal center */
+  transform: translate(-50%, -50%); /* Center the text precisely */
+  text-align: center; /* Center the text horizontally */
+}
+
+.type_text {
+  width: 100%;
+  font-size: 30px;
+  color: #fff;
+  position: absolute;
+  bottom: 50px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+/* Darken the background image */
+#container-customer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for darkness */
+}
+
+
+.header {
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.header p {
+  color: #666;
+  font-size: 14px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: navy;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: gold;
+}
+
+
+/* Customer theme */
+.customer-theme {
+  position: relative; /* Ensure the container is positioned relatively */
+  /* Remove the background-image property from here */
+  color: navy;
+  transition: background-color 0.75s;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(../icons/cocktails.avif);
+}
+
+.customer-theme-recom {
+  position: relative; /* Ensure the container is positioned relatively */
+  /* Remove the background-image property from here */
+  color: navy;
+  transition: background-color 0.75s;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(../icons/cocktails.avif);
+}
+
+
+/* Bar Owner theme */
+.bar-owner-theme {
+  background-color: navy;
+  color: gold;
+  transition: background-color 0.75s;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url(../icons/bartender.jpeg);
+}
+
+
+/* Navigation bar styles */
+.navbar {
+  background-color: white;
+  color: black;
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: navy;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background-color: #FFE800;
+}
+
+
+.box {
+  width: 20%; /* Adjust width as needed */
+  margin: 0 auto; /* Center the box horizontally */
+  padding: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input[type="text"]::placeholder {
+  color: #999;
+}

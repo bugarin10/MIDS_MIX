@@ -1,0 +1,19 @@
+button,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+button {
+    background-color: #d1a806;
+    color: #fff;
+}
+
+button:hover {
+    background-color: #073e78;
+}
+

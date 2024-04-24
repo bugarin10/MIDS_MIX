@@ -1,0 +1,12 @@
+/* Style for underlines */
+.underline {
+    height: 2px;
+    width: 0;
+    background-color: #007bff;
+    transition: width 0.3s;
+}
+
+/* Adjust the position of the underline when focusing on the input fields */
+.input-field:focus + .underline {
+    width: 100%;
+}

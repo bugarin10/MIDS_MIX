@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixology Butler</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <!-- Link to your main styles.css file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/toggle.css') }}"> <!-- Link to your toggle.css file -->
+</head>
+<body id="pageBody" class="customer-theme-recom" >
+
+    <nav class="navbar">
+        <a class="nav-link" href="#">About us</a>
+      </nav>   
+
+      <section>  
+    <div id="container-customer">
+        <h1 class="hero-text">Welcome</h1>
+        <p class="type_text">Type a drink you love</p>
+
+        <div class="box">
+            <input type="text" id="search" placeholder="Old fasioned" />
+        </div>
+    </section>
+
+    <section>
+        <div class="container-columns">
+            <div class="column">
+              <img src="{{ url_for('static', filename='icons/img_sample.png') }}" alt="Image 1">
+              <h3> You should love this</h3>
+              <p></p>
+            </div>
+            <div class="column">
+                <img src="{{ url_for('static', filename='icons/img_sample.png') }}" alt="Image 2">
+                <h3>This taste similar</h3>
+                <p>  </p>
+            </div>
+            <div class="column">
+                <img src="{{ url_for('static', filename='icons/img_sample.png') }}" alt="Image 3">
+                <h3>Try something new</h3>
+                <p></p>
+            </div>
+          </div>
+    </section>
+    
+
+  
+
+    </div>
+
+
+
+</body>
+</html>
