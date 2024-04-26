@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktail Characteristics Survey</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/toggle.css">
+    <link rel="stylesheet" href="../static/css/select.css">
+</head>
+<div class="container">
+    <h1>Cocktail Characteristics Survey</h1>
+    <p>Answer the following questions to get a cocktail recommendation.</p>
+<form action="/submit" method="post">
+    <label for="baseLiquor">Base Liquor:</label>
+    <select id="baseLiquor" name="baseLiquor">
+        <optgroup label="Classics">
+            <option value="brandy">Brandy</option>
+            <option value="gin">Gin</option>
+            <option value="rum">Rum</option>
+            <option value="tequila">Tequila</option>
+            <option value="vodka">Vodka</option>
+            <option value="whiskey">Whiskey</option>
+        </optgroup>
+        <optgroup label="Specialty Spirits">
+            <option value="absinthe">Absinthe</option>
+            <option value="bourbon">Bourbon</option>
+            <option value="mezcal">Mezcal</option>
+            <option value="vermouth">Vermouth</option>
+        </optgroup>
+        <optgroup label="Aperitifs">
+            <option value="beer">Beer</option>
+            <option value="wine">Wine</option>
+        </optgroup>
+    </select>
+
+    <label for="strength">Strength:</label>
+    <select id="strength" name="strength">
+        <option value="light">Light</option>
+        <option value="medium">Medium</option>
+        <option value="strong">Strong</option>
+        <option value="very-strong">Very Strong</option>
+    </select>
+
+    <label for="flavour">Flavour:</label>
+    <select id="flavour" name="flavour">
+        <option value="sweet">Sweet</option>
+        <option value="sour">Sour</option>
+        <option value="bitter">Bitter</option>
+        <option value="spicy">Spicy</option>
+    </select>
+
+    <label for="additionalInfo">Additional Info:</label>
+    <textarea id="additionalInfo" name="additionalInfo" rows="4"></textarea>
+
+    <button type="submit">Submit</button>
+</form>
+</div>
+</body>
+</html>
