@@ -8,9 +8,7 @@ from flask_wtf import FlaskForm
 from wtforms import HiddenField, SubmitField
 from utils import return_image, retrieve_random_coktails, closest_vector
 import os
-# from dotenv import load_dotenv
-
-# load_dotenv()
+import requests
 
 # Flask setup
 app = Flask(__name__)
@@ -20,6 +18,7 @@ app.config["SECRET_KEY"] = "1234"
 token = os.getenv("HUGGING_FACE_TOKEN_NEW")
 API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-large"
 HEADERS = {"Authorization": f"Bearer {token}"}
+
 
 # Query function to Hugging Face model
 def query(payload):
@@ -31,7 +30,7 @@ def query(payload):
 class UserTypeForm(FlaskForm):
     user_type = HiddenField("User Type")
     submit_customer = SubmitField("I'm a Customer")
-    submit_owner = SubmitField("I'm an Owner")
+    submit_survey = SubmitField("I'm an Owner")
 
 
 # Index route for selecting user type
@@ -41,14 +40,11 @@ def index():
     if form.validate_on_submit():
         user_type = form.user_type.data
         if user_type == "Rapid Fire":
-            return redirect(url_for("customer"))
+            return redirect(url_for("Rapid Fire"))
         elif user_type == "Survey":
-            return redirect(url_for("owner"))
+            return redirect(url_for("Survey"))
     return render_template("index.html", form=form)
 
-
-# IDs and vectors
-random_vector = retrieve_random_coktails()
 
 # Route for customer page
 @app.route("/Rapid Fire")
@@ -62,13 +58,13 @@ def customer():
         bases = [info["metadata"]["base"] for info in vector.values()]
 
     else:
-        vector = random_vector
-        IDs = list(random_vector.keys())
+        vector = retrieve_random_coktails()
+        IDs = list(vector.keys())
         bases = [info["metadata"]["base"] for info in vector.values()]
 
     return render_template(
         "Customer.html",
-        user_type="Customer",
+        user_type="Rapid Fire",
         images_urls=return_image(bases=bases, random_retrieve=False),
         vector=vector,
         IDs=IDs,
@@ -77,8 +73,8 @@ def customer():
 
 # Route for owner page
 @app.route("/Survey")
-def owner():
-    return render_template("survey.html", user_type="Owner")
+def survey():
+    return render_template("survey.html", user_type="Survey")
 
 
 # Route for survey form submission
@@ -95,7 +91,9 @@ def submit():
         prompt_name += f"Base Liquor: {base_liquor}\n"
         prompt_name += f"Strength: {strength}\n"
         prompt_name += f"Flavour: {flavour}\n"
-        prompt_name += f"Other ingredients and/or characteristics: {additional_info}\n\n"
+        prompt_name += (
+            f"Other ingredients and/or characteristics: {additional_info}\n\n"
+        )
         prompt_name += "Generate a pre-existing or fancy name for a cocktail with these characteristics. Make sure to include the other ingredients and/or characteristics in the name."
 
         # Payload for query to Hugging Face model to generate the cocktail name
@@ -114,7 +112,9 @@ def submit():
             prompt_ingredients += f"Base Liquor: {base_liquor}\n"
             prompt_ingredients += f"Strength: {strength}\n"
             prompt_ingredients += f"Flavour: {flavour}\n"
-            prompt_ingredients += f"Other ingredients and/or characteristics: {additional_info}\n\n"
+            prompt_ingredients += (
+                f"Other ingredients and/or characteristics: {additional_info}\n\n"
+            )
             prompt_ingredients += "Generate a list of unique ingredients for a cocktail with these characteristics. Make sure to include the other ingredients and/or characteristics in the ingredients."
 
             # Payload for query to Hugging Face model to generate ingredients
@@ -131,12 +131,13 @@ def submit():
             print("Ingredients: ", ingredients)
 
             # Return the cocktail name and ingredients to the user
-            return render_template("results.html", cocktail_name=cocktail_name, ingredients=ingredients)
+            return render_template(
+                "results.html", cocktail_name=cocktail_name, ingredients=ingredients
+            )
         except Exception as e:
             # Handle any errors that occur during the queries
             return f"An error occurred: {str(e)}"
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=3000)
-
+    app.run(debug=True, host="0.0.0.0", port=5000)
