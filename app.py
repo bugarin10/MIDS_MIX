@@ -30,7 +30,7 @@ def query(payload):
 class UserTypeForm(FlaskForm):
     user_type = HiddenField("User Type")
     submit_customer = SubmitField("I'm a Customer")
-    submit_owner = SubmitField("I'm an Owner")
+    submit_survey = SubmitField("I'm an Owner")
 
 
 # Index route for selecting user type
@@ -42,7 +42,7 @@ def index():
         if user_type == "Rapid Fire":
             return redirect(url_for("customer"))
         elif user_type == "Survey":
-            return redirect(url_for("owner"))
+            return redirect(url_for("survey"))
     return render_template("index.html", form=form)
 
 
@@ -70,7 +70,7 @@ def customer():
 
 # Route for owner page
 @app.route("/Survey")
-def owner():
+def survey():
     return render_template("survey.html", user_type="Survey")
 
 
