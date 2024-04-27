@@ -12,6 +12,7 @@ pinecone-client = "*"
 pandas = "==2.0.3"
 pyarrow = "==15.0.0"
 requests = "*"
+urllib3 = "==1.26.8"
 
 [dev-packages]
 
