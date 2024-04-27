@@ -8,6 +8,7 @@ from flask_wtf import FlaskForm
 from wtforms import HiddenField, SubmitField
 from utils import return_image, retrieve_random_coktails, closest_vector
 import os
+import requests
 
 # Flask setup
 app = Flask(__name__)
@@ -136,4 +137,4 @@ def submit():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=3000)
+    app.run(debug=True, host="0.0.0.0", port=5000)
