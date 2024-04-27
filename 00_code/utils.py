@@ -3,6 +3,8 @@ import pandas as pd
 from pinecone import Pinecone
 import os
 from dotenv import load_dotenv
+import requests
+
 
 load_dotenv()
 

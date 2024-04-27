@@ -8,6 +8,7 @@ from flask_wtf import FlaskForm
 from wtforms import HiddenField, SubmitField
 from utils import return_image, retrieve_random_coktails, closest_vector
 import os
+import requests
 
 # Flask setup
 app = Flask(__name__)
