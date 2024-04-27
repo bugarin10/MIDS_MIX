@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" href="../static/css/toggle.css">
     <link rel="stylesheet" href="../static/css/select.css">
+    <link rel="stylesheet" href="../static/css/board.css">
 </head>
 <div class="container">
-    <h1>Cocktail Characteristics Survey</h1>
+    <h1>Cocktail Questoinnaire</h1>
     <p>Answer the following questions to get a cocktail recommendation.</p>
-<form action="/submit" method="post">
+<form id="cocktailForm" action="/submit" method="post">
     <label for="baseLiquor">Base Liquor:</label>
     <select id="baseLiquor" name="baseLiquor">
         <optgroup label="Classics">
@@ -50,11 +51,38 @@
         <option value="spicy">Spicy</option>
     </select>
 
-    <label for="additionalInfo">Additional Info:</label>
-    <textarea id="additionalInfo" name="additionalInfo" rows="4"></textarea>
+    <br>
+    <br>
+    <label for="additionalInfo">In case you missed something important</label>
+        <div id="additionalInfo" class="board" contenteditable="true">
+            <!-- Hidden input field to store additional info -->
+            <input type="hidden" id="additionalInfoHidden" name="additionalInfoHidden">
+        </div>
 
-    <button type="submit">Submit</button>
-</form>
+        <button type="submit">Submit</button>
+    </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var additionalInfoDiv = document.getElementById("additionalInfo");
+        var additionalInfoHidden = document.getElementById("additionalInfoHidden");
+
+        additionalInfoDiv.addEventListener("focus", function() {
+            // Clear the content when the user focuses on the board
+            if (this.innerText.trim() === "Any fruit you're craving?") {
+                this.innerText = "";
+            }
+        });
+
+        // Add event listener to the form submission
+        var form = document.getElementById("cocktailForm");
+        form.addEventListener("submit", function(event) {
+            // Update the value of the hidden input field with the content of additionalInfoDiv
+            additionalInfoHidden.value = additionalInfoDiv.innerText.trim();
+        });
+    });
+</script>
+
 </body>
 </html>

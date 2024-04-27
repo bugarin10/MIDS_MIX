@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Access the environment variable
-token = os.getenv("HUGGING_FACE_TOKEN")
+token = os.getenv("HUGGING_FACE_TOKEN_NEW")
 API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-large"
 HEADERS = {"Authorization": f"Bearer {token}"}
 
@@ -28,15 +28,16 @@ def submit():
         base_liquor = request.form['baseLiquor']
         strength = request.form['strength']
         flavour = request.form['flavour']
-        additional_info = request.form['additionalInfo']
+        additional_info = request.form['additionalInfoHidden']
+        print("Additional info: ", additional_info)
         
         # Constructing the prompt based on user's selections to generate the cocktail name
         prompt_name = f"Create a cocktail with the following characteristics:\n\n"
         prompt_name += f"Base Liquor: {base_liquor}\n"
         prompt_name += f"Strength: {strength}\n"
         prompt_name += f"Flavour: {flavour}\n"
-        prompt_name += f"Additional Info: {additional_info}\n\n"
-        prompt_name += "Generate a pre-existing or fancy name for a cocktail with these characteristics."
+        prompt_name += f"Other ingredients and/or characteristics: {additional_info}\n\n"
+        prompt_name += "Generate a pre-existing or fancy name for a cocktail with these characteristics. Make sure to include other ingredients and/or characteristics."
         
         # Payload for query to Hugging Face model to generate the cocktail name
         payload_name = {"inputs": prompt_name}
@@ -54,8 +55,8 @@ def submit():
             prompt_ingredients += f"Base Liquor: {base_liquor}\n"
             prompt_ingredients += f"Strength: {strength}\n"
             prompt_ingredients += f"Flavour: {flavour}\n"
-            prompt_ingredients += f"Additional Info: {additional_info}\n\n"
-            prompt_ingredients += "Generate a list of unique ingredients for a cocktail with these characteristics."
+            prompt_ingredients += f"Other ingredients and/or characteristics: {additional_info}\n\n"
+            prompt_ingredients += "Generate a list of unique ingredients for a cocktail with these characteristics. Make sure to include other ingredients and/or characteristics."
             
             # Payload for query to Hugging Face model to generate ingredients
             payload_ingredients = {"inputs": prompt_ingredients}
