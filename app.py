@@ -18,6 +18,7 @@ token = os.getenv("HUGGING_FACE_TOKEN_NEW")
 API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-large"
 HEADERS = {"Authorization": f"Bearer {token}"}
 
+
 # Query function to Hugging Face model
 def query(payload):
     response = requests.post(API_URL, headers=HEADERS, json=payload)
@@ -46,10 +47,6 @@ def index():
 
 # Route for customer page
 @app.route("/Rapid Fire")
-
-# IDs and vectors
-random_vector = retrieve_random_coktails()
-
 def customer():
     refresh = request.args.get("refresh", "false") == "true"
     id = request.args.get("id", None)
@@ -58,12 +55,12 @@ def customer():
         vector = closest_vector(id)
         IDs = list(vector.keys())
     else:
-        vector = random_vector
-        IDs = list(random_vector.keys())
+        vector = retrieve_random_coktails()
+        IDs = list(vector.keys())
 
     return render_template(
         "Customer.html",
-        user_type="Customer",
+        user_type="Rapid Fire",
         images_urls=return_image(base=None, random_retrieve=True),
         vector=vector,
         IDs=IDs,
@@ -90,7 +87,9 @@ def submit():
         prompt_name += f"Base Liquor: {base_liquor}\n"
         prompt_name += f"Strength: {strength}\n"
         prompt_name += f"Flavour: {flavour}\n"
-        prompt_name += f"Other ingredients and/or characteristics: {additional_info}\n\n"
+        prompt_name += (
+            f"Other ingredients and/or characteristics: {additional_info}\n\n"
+        )
         prompt_name += "Generate a pre-existing or fancy name for a cocktail with these characteristics. Make sure to include the other ingredients and/or characteristics in the name."
 
         # Payload for query to Hugging Face model to generate the cocktail name
@@ -109,7 +108,9 @@ def submit():
             prompt_ingredients += f"Base Liquor: {base_liquor}\n"
             prompt_ingredients += f"Strength: {strength}\n"
             prompt_ingredients += f"Flavour: {flavour}\n"
-            prompt_ingredients += f"Other ingredients and/or characteristics: {additional_info}\n\n"
+            prompt_ingredients += (
+                f"Other ingredients and/or characteristics: {additional_info}\n\n"
+            )
             prompt_ingredients += "Generate a list of unique ingredients for a cocktail with these characteristics. Make sure to include the other ingredients and/or characteristics in the ingredients."
 
             # Payload for query to Hugging Face model to generate ingredients
@@ -126,7 +127,9 @@ def submit():
             print("Ingredients: ", ingredients)
 
             # Return the cocktail name and ingredients to the user
-            return render_template("results.html", cocktail_name=cocktail_name, ingredients=ingredients)
+            return render_template(
+                "results.html", cocktail_name=cocktail_name, ingredients=ingredients
+            )
         except Exception as e:
             # Handle any errors that occur during the queries
             return f"An error occurred: {str(e)}"
@@ -134,4 +137,3 @@ def submit():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=3000)
-
