@@ -1,7 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for
+import sys
+
+sys.path.append("00_code/")
+
+
+from flask import Flask, render_template, redirect, url_for, request
 from flask_wtf import FlaskForm
 from wtforms import HiddenField, SubmitField
-import requests
+from utils import return_image, retrieve_random_coktails, closest_vector
 import os
 
 # Flask setup
@@ -41,8 +46,28 @@ def index():
 
 # Route for customer page
 @app.route("/Rapid Fire")
+
+# IDs and vectors
+random_vector = retrieve_random_coktails()
+
 def customer():
-    return render_template("Customer.html", user_type="Customer")
+    refresh = request.args.get("refresh", "false") == "true"
+    id = request.args.get("id", None)
+    if refresh and id is not None:
+
+        vector = closest_vector(id)
+        IDs = list(vector.keys())
+    else:
+        vector = random_vector
+        IDs = list(random_vector.keys())
+
+    return render_template(
+        "Customer.html",
+        user_type="Customer",
+        images_urls=return_image(base=None, random_retrieve=True),
+        vector=vector,
+        IDs=IDs,
+    )
 
 
 # Route for owner page
@@ -108,4 +133,5 @@ def submit():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    app.run(debug=True, host="0.0.0.0", port=3000)
+
