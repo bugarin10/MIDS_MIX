@@ -9,15 +9,20 @@ import requests
 load_dotenv()
 
 
-def return_image(base=None, random_retrieve=True):
+def return_image(bases=None, random_retrieve=False):
     """This function returns the url of the image
     using a random selection or using the closest image
 
 
     Args:
-        base_liquor (str): base liquour among 20 different
+        bases (list): List of base liquour among 20 different types
         random (bool, optional): Is the return random or not. Defaults to True.
     """
+    bases = [base.replace(' ', '_').lower() for base in bases]
+    base_url = "https://cocktail-recommendations.s3.us-east-2.amazonaws.com/spirits-pictures/"
+    random_image = "https://cocktail-recommendations.s3.us-east-2.amazonaws.com/spirits-pictures/random.jpg"
+    all_images = []
+
     url_drinks = {
         "tequila": "https://www.lanaval.com.mx/115615-product_default/tequila-don-julio-70-700-ml.jpg",
         "whiskey": "https://bouquetdebarrica.com/cdn/shop/products/WoodfordReserveMain.jpg?v=1659570654",
@@ -31,8 +36,16 @@ def return_image(base=None, random_retrieve=True):
         return random_values
 
     else:
-        # Using lambda to retrieve the info.
-        return None
+        for base in bases:
+            image_url = base_url + base + ".jpg"
+            if is_url_valid(image_url):
+                print("URL is valid.")
+                all_images.append(image_url)
+            else:
+                print("URL is not valid. Switching to default backup.")
+                all_images.append(random_image)
+                
+        return  all_images
 
 
 def retrieve_random_coktails():
@@ -77,3 +90,7 @@ def closest_vector(id):
     result = {IDs[i]: closest_vectors["matches"][i] for i in range(3)}
 
     return result
+
+def is_url_valid(url):
+    response = requests.head(url)
+    return response.status_code == 200

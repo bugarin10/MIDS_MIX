@@ -55,14 +55,17 @@ def customer():
 
         vector = closest_vector(id)
         IDs = list(vector.keys())
+        bases = [info["metadata"]["base"] for info in vector.values()]
+
     else:
         vector = retrieve_random_coktails()
         IDs = list(vector.keys())
+        bases = [info["metadata"]["base"] for info in vector.values()]
 
     return render_template(
         "Customer.html",
         user_type="Rapid Fire",
-        images_urls=return_image(base=None, random_retrieve=True),
+        images_urls=return_image(bases=bases, random_retrieve=False),
         vector=vector,
         IDs=IDs,
     )
