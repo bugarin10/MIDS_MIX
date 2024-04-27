@@ -12,7 +12,7 @@
 
 <!-- Add dynamic class based on user type -->
 
-{% set user_type = 'Customer' %}
+{% set user_type = 'Rapid Fire' %}
 
 <div class="container">
     <div class="header">
@@ -25,10 +25,10 @@
     </div>
 
     <p id="userTypeText">
-        {% if user_type == "Customer" %}
-            Let's give you a cocktail recommendation.
+        {% if user_type == "Rapid Fire" %}
+            Play a cocktail version of 'Would you rather?'.
         {% else %}
-            Let's give your customers some drinks to choose from.
+            How would you describe your ideal cocktail?
         {% endif %}
     </p>
 
@@ -43,14 +43,14 @@
 
         toggle.addEventListener('change', () => {
             if (toggle.checked) {
-                userTypeText.textContent = "Let's give your customers some drinks to choose from.";
+                userTypeText.textContent = "How would you describe your ideal cocktail?";
             } else {
-                userTypeText.textContent = "Let's give you a cocktail recommendation.";
+                userTypeText.textContent = "Play a cocktail version of 'Would you rather?'.";
             }
         });
 
         submitBtn.addEventListener('click', () => {
-            const user_type = toggle.checked ? 'Owner' : 'Customer';
+            const user_type = toggle.checked ? 'Survey' : 'Rapid Fire';
             window.location.href = `/${user_type}`;
         });
     });
