@@ -29,6 +29,12 @@ This is the broad structure of the project and how we visualize is going to be m
 
 ![structure](static/images/structure.png)
 
+## Personal Cocktail Recommendation Engine
+The first half of this project was to create a home-brewed cocktail recommendation engine. The engine was built using a dataset of cocktail recipes and ingredients. Using Pinecone, we were able to create a vector representation of each cocktail recipe and use cosine similarity to recommend similar cocktails based on user input. 
+
+## Hugging Face Cocktail Recommendation Engine
+The second half of this project was to create a cocktail recommendation engine using Hugging Face's model hub. For the same, we used a pre-trained model from Hugging Face's model hub to generate cocktail recommendations based on user input, namely, google-flan-large. 
+
 # Deployment
 
 For this individual one the project was deployed on Azure because doing it on AWS has not being explored yet, the website was https://midsmix.azurewebsites.net/ but it will be up just for the demo.

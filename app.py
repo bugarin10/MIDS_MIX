@@ -70,7 +70,7 @@ def customer():
 # Route for owner page
 @app.route("/Survey")
 def owner():
-    return render_template("survey.html", user_type="Owner")
+    return render_template("survey.html", user_type="Survey")
 
 
 # Route for survey form submission
