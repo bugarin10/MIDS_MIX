@@ -1,6 +1,13 @@
+import sys
+
+sys.path.append("00_code/")
+
+
 from flask import Flask, render_template, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import HiddenField, SubmitField
+from utils import *
+
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "1234"
@@ -26,7 +33,7 @@ def index():
 
 @app.route("/Customer")
 def customer():
-    return render_template("Customer.html", user_type="Customer")
+    return render_template("Customer.html", user_type="Customer", random_dict=[1, 2, 3])
 
 
 @app.route("/Owner")
@@ -35,4 +42,4 @@ def owner():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=3000)

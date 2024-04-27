@@ -1,3 +1,20 @@
 Flask==3.0.1
 WTForms==3.1.2
 Flask-WTF==1.2.1
+python-dotenv
+pinecone-client
+langchain
+langchain-community
+langchain_core
+langchain-openai langchainhub
+pandas==2.2.2
+python-dotenv==1.0.0
+pyarrow==15.0.0
+openai==1.11.0
+sentence-transformers==2.6.0
+chromadb==0.4.24
+keras==3.1.1
+tensorflow==2.16.1
+matplotlib==3.8.3
+tensorflow_hub==0.16.1
+sentence-transformers
