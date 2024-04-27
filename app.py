@@ -8,6 +8,9 @@ from flask_wtf import FlaskForm
 from wtforms import HiddenField, SubmitField
 from utils import return_image, retrieve_random_coktails, closest_vector
 import os
+# from dotenv import load_dotenv
+
+# load_dotenv()
 
 # Flask setup
 app = Flask(__name__)
@@ -44,12 +47,11 @@ def index():
     return render_template("index.html", form=form)
 
 
-# Route for customer page
-@app.route("/Rapid Fire")
-
 # IDs and vectors
 random_vector = retrieve_random_coktails()
 
+# Route for customer page
+@app.route("/Rapid Fire")
 def customer():
     refresh = request.args.get("refresh", "false") == "true"
     id = request.args.get("id", None)
@@ -57,14 +59,17 @@ def customer():
 
         vector = closest_vector(id)
         IDs = list(vector.keys())
+        bases = [info["metadata"]["base"] for info in vector.values()]
+
     else:
         vector = random_vector
         IDs = list(random_vector.keys())
+        bases = [info["metadata"]["base"] for info in vector.values()]
 
     return render_template(
         "Customer.html",
         user_type="Customer",
-        images_urls=return_image(base=None, random_retrieve=True),
+        images_urls=return_image(bases=bases, random_retrieve=False),
         vector=vector,
         IDs=IDs,
     )
