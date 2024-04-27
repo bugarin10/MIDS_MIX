@@ -40,9 +40,9 @@ def index():
     if form.validate_on_submit():
         user_type = form.user_type.data
         if user_type == "Rapid Fire":
-            return redirect(url_for("customer"))
+            return redirect(url_for("Rapid Fire"))
         elif user_type == "Survey":
-            return redirect(url_for("survey"))
+            return redirect(url_for("Survey"))
     return render_template("index.html", form=form)
 
 
