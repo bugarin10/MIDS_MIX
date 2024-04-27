@@ -58,7 +58,7 @@ def customer():
 
 @app.route("/Owner")
 def owner():
-    return render_template("Owner.html", user_type="Owner")
+    return render_template("owner.html", user_type="Owner")
 
 
 if __name__ == "__main__":
