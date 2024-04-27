@@ -26,19 +26,19 @@
     <section>
         <div class="container-columns">
             <div class="column">
-                <img src="{{ images_urls[0] }}" alt="Image 1" style="height: 300px;">
-                <h3> {{random_vector[IDs[0]]['metadata']['name']}}</h3>
-                <p>{{random_vector[IDs[0]]['metadata']['ingredients']}}</p>
+                <img src="{{ images_urls[0] }}" alt="Image 1" style="height: 300px;" onclick="location.href='/Customer?refresh=true&id={{ IDs[0] }}'">
+                <h3> {{vector[IDs[0]]['metadata']['name']}}</h3>
+                <p>{{vector[IDs[0]]['metadata']['ingredients']}}</p>
             </div>
             <div class="column">
-                <img src="{{ images_urls[1] }}" alt="Image 1" style="height: 300px;">
-                <h3> {{random_vector[IDs[1]]['metadata']['name']}}</h3>
-                <p>{{random_vector[IDs[1]]['metadata']['ingredients']}}</p>
+                <img src="{{ images_urls[0] }}" alt="Image 1" style="height: 300px;" onclick="location.href='/Customer?refresh=true&id={{ IDs[1] }}'">
+                <h3> {{vector[IDs[1]]['metadata']['name']}}</h3>
+                <p>{{vector[IDs[1]]['metadata']['ingredients']}}</p>
             </div>
             <div class="column">
-                <img src="{{ images_urls[2] }}" alt="Image 1" style="height: 300px;">
-                <h3> {{random_vector[IDs[2]]['metadata']['name']}}</h3>
-                <p>{{random_vector[IDs[2]]['metadata']['ingredients']}}</p>
+                <img src="{{ images_urls[0] }}" alt="Image 1" style="height: 300px;" onclick="location.href='/Customer?refresh=true&id={{ IDs[2] }}'">
+                <h3> {{vector[IDs[2]]['metadata']['name']}}</h3>
+                <p>{{vector[IDs[2]]['metadata']['ingredients']}}</p>
             </div>
           </div>
     </section>
@@ -49,6 +49,16 @@
     </div>
 
 
-
+    <script>
+        window.onload = function() {
+            if (sessionStorage.getItem("scrollPosition") != null) {
+                window.scrollTo(0, sessionStorage.getItem("scrollPosition"));
+            }
+        
+            window.onscroll = function() {
+                sessionStorage.setItem("scrollPosition", window.pageYOffset);
+            };
+        };
+        </script>
 </body>
 </html>

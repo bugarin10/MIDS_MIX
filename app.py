@@ -3,10 +3,10 @@ import sys
 sys.path.append("00_code/")
 
 
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_wtf import FlaskForm
 from wtforms import HiddenField, SubmitField
-from utils import return_image, retrieve_random_coktails
+from utils import return_image, retrieve_random_coktails, closest_vector
 
 
 app = Flask(__name__)
@@ -33,16 +33,25 @@ def index():
 
 # IDs and vectors
 random_vector = retrieve_random_coktails()
-IDs = list(random_vector.keys())
 
 
 @app.route("/Customer")
 def customer():
+    refresh = request.args.get("refresh", "false") == "true"
+    id = request.args.get("id", None)
+    if refresh and id is not None:
+
+        vector = closest_vector(id)
+        IDs = list(vector.keys())
+    else:
+        vector = random_vector
+        IDs = list(random_vector.keys())
+
     return render_template(
         "Customer.html",
         user_type="Customer",
         images_urls=return_image(base=None, random_retrieve=True),
-        random_vector=random_vector,
+        vector=vector,
         IDs=IDs,
     )
 

@@ -2,7 +2,9 @@ import random
 import pandas as pd
 from pinecone import Pinecone
 import os
-import dotenv
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def return_image(base=None, random_retrieve=True):
@@ -37,7 +39,6 @@ def retrieve_random_coktails():
     Returns:
         dictionary: returns three IDs with their relevant information
     """
-
     pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 
     index = pc.Index("midsmix")
@@ -49,3 +50,28 @@ def retrieve_random_coktails():
     result = index.fetch(ids=three_ids)
 
     return result["vectors"]
+
+
+def closest_vector(id):
+
+    pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+
+    index = pc.Index("midsmix")
+
+    id_to_compare = index.fetch(ids=[id])
+
+    result = id_to_compare["vectors"]
+
+    values = id_to_compare["vectors"][id]["values"]
+
+    closest_vectors = index.query(
+        vector=values,
+        top_k=3,
+        include_metadata=True,
+    )
+
+    IDs = [i["id"] for i in closest_vectors["matches"]]
+
+    result = {IDs[i]: closest_vectors["matches"][i] for i in range(3)}
+
+    return result
