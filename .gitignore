@@ -4,4 +4,6 @@
 venv
 #.env
 .env
+# 10_data
+10_data
 

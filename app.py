@@ -6,7 +6,7 @@ sys.path.append("00_code/")
 from flask import Flask, render_template, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import HiddenField, SubmitField
-from utils import *
+from utils import return_image, retrieve_random_coktails
 
 
 app = Flask(__name__)
@@ -31,9 +31,20 @@ def index():
     return render_template("index.html", form=form)
 
 
+# IDs and vectors
+random_vector = retrieve_random_coktails()
+IDs = list(random_vector.keys())
+
+
 @app.route("/Customer")
 def customer():
-    return render_template("Customer.html", user_type="Customer", random_dict=[1, 2, 3])
+    return render_template(
+        "Customer.html",
+        user_type="Customer",
+        images_urls=return_image(base=None, random_retrieve=True),
+        random_vector=random_vector,
+        IDs=IDs,
+    )
 
 
 @app.route("/Owner")
